@@ -16,6 +16,11 @@ class Category
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $type = null;
 
+    #[ORM\OneToOne(inversedBy: 'category', cascade: ['persist', 'remove'])]
+    private ?User $User = null;
+
+    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -32,4 +37,18 @@ class Category
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): static
+    {
+        $this->User = $User;
+
+        return $this;
+    }
+
+
 }

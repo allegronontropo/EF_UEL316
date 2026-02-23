@@ -2,21 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\PayementMethodRepository;
+use App\Repository\TransactionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PayementMethodRepository::class)]
-class PayementMethod
+#[ORM\Entity(repositoryClass: TransactionRepository::class)]
+class Transaction
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\ManyToOne]
+    private ?PayementMethod $PayementMethod = null;
 
-    #[ORM\OneToOne(inversedBy: 'payementMethod', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
     private ?User $User = null;
 
     public function getId(): ?int
@@ -24,14 +24,14 @@ class PayementMethod
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getPayementMethod(): ?PayementMethod
     {
-        return $this->name;
+        return $this->PayementMethod;
     }
 
-    public function setName(string $name): static
+    public function setPayementMethod(?PayementMethod $PayementMethod): static
     {
-        $this->name = $name;
+        $this->PayementMethod = $PayementMethod;
 
         return $this;
     }
