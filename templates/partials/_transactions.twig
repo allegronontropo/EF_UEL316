@@ -1,0 +1,15 @@
+{% for transaction in transactions %}
+    <article class="transaction-card">
+        {% if transaction.PayementMethod %}
+            <div>{{ transaction.PayementMethod.title }}</div>
+        {% endif %}
+
+        {% if transaction.user is defined and transaction.user %}
+            <p class="transaction-card__author">Par {{ transaction.user.name }}</p>
+        {% endif %}
+
+        <p class="transaction-card__date">{{ transaction.createdAt|date('d/m/Y') }}</p>
+    </article>
+{% else %}
+    <p>Aucun produit disponible.</p>
+{% endfor %}

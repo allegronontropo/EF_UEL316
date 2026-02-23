@@ -19,6 +19,9 @@ class Transaction
     #[ORM\ManyToOne(inversedBy: 'transactions')]
     private ?User $User = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Transaction
     public function setUser(?User $User): static
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
